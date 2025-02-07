@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using TestTasks.InternationalTradeTask.Models;
 
 namespace TestTasks.InternationalTradeTask
@@ -8,12 +7,12 @@ namespace TestTasks.InternationalTradeTask
     {
         public double GetImportTariff(string commodityName)
         {
-            throw new NotImplementedException();
+            return GetTariff(commodityName, c => c.ImportTarif);
         }
 
         public double GetExportTariff(string commodityName)
         {
-            throw new NotImplementedException();
+            return GetTariff(commodityName, c => c.ExportTarif);
         }
 
         private FullySpecifiedCommodityGroup[] _allCommodityGroups = new FullySpecifiedCommodityGroup[]
@@ -47,5 +46,66 @@ namespace TestTasks.InternationalTradeTask
                 }
             }
         };
+
+        private double GetTariff(string commodityName, Func<ICommodityGroup, double?> tariffSelector)
+        {
+            double? tariffResult = null;
+            var commodity = FindCommodityByName(commodityName, tariffSelector, ref tariffResult);
+            if (commodity == null)
+            {
+                throw new ArgumentException($"Commodity '{commodityName}' not found.");
+            }
+
+            return tariffResult ?? 0;
+        }
+
+        private ICommodityGroup FindCommodityByName(string commodityName, Func<ICommodityGroup, double?> tariffSelector, ref double? result)
+        {
+            foreach (var group in _allCommodityGroups)
+            {
+                var commodity = FindCommodityInGroup(group, commodityName, tariffSelector, ref result);
+                if (commodity != null)
+                {
+                    if (result is null)
+                    {
+                        result = tariffSelector(group);
+                    }
+                    return commodity;
+                }
+            }
+            return null;
+        }
+
+        private ICommodityGroup FindCommodityInGroup(ICommodityGroup group, string commodityName, Func<ICommodityGroup, double?> tariffSelector, ref double? result)
+        {
+            if (group.Name.Equals(commodityName, StringComparison.OrdinalIgnoreCase))
+            {
+                var tariff = tariffSelector(group);
+                if (tariff.HasValue && result is null)
+                {
+                    result = tariff.Value;
+                }
+                return group;
+            }
+
+            if (group.SubGroups != null)
+            {
+                foreach (var subGroup in group.SubGroups)
+                {
+                    var commodity = FindCommodityInGroup(subGroup, commodityName, tariffSelector, ref result);
+                    if (commodity != null)
+                    {
+                        var tariff = tariffSelector(commodity);
+                        if (tariff.HasValue && result is null)
+                        {
+                            result = tariff.Value;
+                        }
+                        return commodity;
+                    }
+                }
+            }
+
+            return null;
+        }
     }
 }

@@ -16,9 +16,9 @@ namespace TestTasks
             string str = File.ReadAllText("./CharCounting/StringExample.txt");
             var charCount = stringProcessor.GetCharCount(str, new char[] { 'l', 'r', 'm', 'L', 'R', 'M'});
 
-            // var commodityRepository = new CommodityRepository();
-            // commodityRepository.GetImportTariff("Natural honey");
-            // commodityRepository.GetExportTariff("Iron/steel scrap not sorted or graded");            
+            var commodityRepository = new CommodityRepository();
+            commodityRepository.GetImportTariff("Natural honey");
+            commodityRepository.GetExportTariff("Iron/steel scrap not sorted or graded");            
             //
             // var weatherManager = new WeatherManager();
             // var comparisonResult = await weatherManager.CompareWeather("kyiv,ua", "lviv,ua", 4);
