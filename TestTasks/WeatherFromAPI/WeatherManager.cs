@@ -10,11 +10,16 @@ namespace TestTasks.WeatherFromAPI
 
     public class WeatherManager
     {
-        private readonly OpenWeatherClient _apiClient;
+        private readonly IOpenWeatherService _apiClient;
+
+        public WeatherManager(IOpenWeatherService service)
+        {
+            _apiClient = service;
+        }
 
         public WeatherManager()
         {
-            _apiClient = OpenWeatherClient.GetInstance();
+            _apiClient = new OpenWeatherService();
         }
 
         public async Task<WeatherComparisonResult> CompareWeather(string cityA, string cityB, int dayCount)

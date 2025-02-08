@@ -1,4 +1,4 @@
-namespace TestTasks.WeatherFromAPI.Models.Responces
+namespace TestTasks.WeatherFromAPI.Models.Responses
 {
     using System.Collections.Generic;
     using System.Text.Json.Serialization;
