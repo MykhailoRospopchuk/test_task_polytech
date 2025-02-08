@@ -23,18 +23,28 @@ public class WeatherManagerTests
         var cityB = "lviv,ua";
         var dayCount = 4;
 
-        var cityAGeoCoordinates = (lat: 46.4825, lon: 30.7233);
-        var cityBGeoCoordinates = (lat: 49.8397, lon: 24.0297);
+        var cityAGeoCoordinates = (lat: 46.4843, lon: 30.7323);
+        var cityBGeoCoordinates = (lat: 49.8419, lon: 24.0316);
 
         var cityAWeatherData = new CityWeatherResult
         {
             City = "Odesa",
             Country = "UA",
-            Timezone = 10800,
+            Timezone = 7200,
             Measurements = new List<WeatherMeasurementItem>
             {
                 new WeatherMeasurementItem { Dt = 1633036800, Temperature = 20, RainVolume = 0 },
-                new WeatherMeasurementItem { Dt = 1633123200, Temperature = 21, RainVolume = 0 }
+                new WeatherMeasurementItem { Dt = 1633047600, Temperature = 21, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633058400, Temperature = 15, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633069200, Temperature = 12, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633080000, Temperature = 12, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633090800, Temperature = 17, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633101600, Temperature = 29, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633112400, Temperature = 24, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633123200, Temperature = 21, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633134000, Temperature = 17.5, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633144800, Temperature = 12.5, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633155600, Temperature = 14, RainVolume = 0 },
             }
         };
 
@@ -42,11 +52,21 @@ public class WeatherManagerTests
         {
             City = "Lviv",
             Country = "UA",
-            Timezone = 10800,
+            Timezone = 7200,
             Measurements = new List<WeatherMeasurementItem>
             {
-                new WeatherMeasurementItem { Dt = 1633036800, Temperature = 18, RainVolume = 1 },
-                new WeatherMeasurementItem { Dt = 1633123200, Temperature = 19, RainVolume = 0 }
+                new WeatherMeasurementItem { Dt = 1633036800, Temperature = 5, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633047600, Temperature = 2, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633058400, Temperature = 5, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633069200, Temperature = 6, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633080000, Temperature = 1, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633090800, Temperature = 7, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633101600, Temperature = 2, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633112400, Temperature = 23, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633123200, Temperature = 1, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633134000, Temperature = 22.5, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633144800, Temperature = 12, RainVolume = 0 },
+                new WeatherMeasurementItem { Dt = 1633155600, Temperature = 14, RainVolume = 0 },
             }
         };
 

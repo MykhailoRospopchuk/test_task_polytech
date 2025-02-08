@@ -40,8 +40,8 @@ namespace TestTasks.WeatherFromAPI
             var cityAMeasurements = PrepareWeatherMeasurements(cityAWeatherData);
             var cityBMeasurements = PrepareWeatherMeasurements(cityBWeatherData);
 
-            var cityAMeasurementAverage = PrepareWeatherMeasurementsAverage(cityAMeasurements);
-            var cityBMeasurementAverage = PrepareWeatherMeasurementsAverage(cityBMeasurements);
+            var cityAMeasurementAverage = PrepareWeatherMeasurementsAverage(cityAMeasurements, dayCount);
+            var cityBMeasurementAverage = PrepareWeatherMeasurementsAverage(cityBMeasurements, dayCount);
 
             var counting = CompareWeather(cityAMeasurementAverage, cityBMeasurementAverage);
 
@@ -81,10 +81,12 @@ namespace TestTasks.WeatherFromAPI
         }
 
         private Dictionary<DateTime,(double temperatureAvg, double rainAvg)> PrepareWeatherMeasurementsAverage(
-            List<WeatherMeasurementItem> measurements)
+            List<WeatherMeasurementItem> measurements,
+            int dayCount)
         {
             var result2 = measurements
                 .GroupBy(m => DateHelper.UnixToDateTime(m.Dt).Date)
+                .Take(dayCount)
                 .ToDictionary(
                     g => g.Key, 
                     g => 
