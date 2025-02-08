@@ -14,7 +14,7 @@ namespace TestTasks.WeatherFromAPI
     {
         public async Task<(double lat, double lon)> GetCityGeoCoordinates(string city)
         {
-            var client = OpenWeatherClient.GetInstance();
+            using var client = OpenWeatherClient.GetInstance();
             
             if (!ValidationHelper.LocationIsValid(city))
             {
@@ -49,7 +49,7 @@ namespace TestTasks.WeatherFromAPI
 
         public async Task<CityWeatherResult> GetWeatherByCity(double lat, double lan, int count)
         {
-            var client = OpenWeatherClient.GetInstance();
+            using var client = OpenWeatherClient.GetInstance();
             
             var queryParams = new Dictionary<string, string>
             {

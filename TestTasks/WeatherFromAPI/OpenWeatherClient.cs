@@ -8,10 +8,9 @@ namespace TestTasks.WeatherFromAPI
     using Helpers;
     using ResultType;
 
-    public class OpenWeatherClient
+    public class OpenWeatherClient : IDisposable
     {
         private HttpClient _client;
-        private static OpenWeatherClient _instance;
         
         private OpenWeatherClient()
         {
@@ -21,11 +20,7 @@ namespace TestTasks.WeatherFromAPI
 
         public static OpenWeatherClient GetInstance()
         {
-            if (_instance == null)
-            {
-                _instance = new OpenWeatherClient();
-            }
-            return _instance;
+            return new OpenWeatherClient();
         }
 
         public async Task<ResultContainer<TReturn>> GetAsync<TReturn>(string uri)
@@ -43,9 +38,9 @@ namespace TestTasks.WeatherFromAPI
                     var message = await response.Content.ReadAsStringAsync();
                     throw new Exception(message);
                 }
-            
+
                 var result = await response.Content.ReadFromJsonAsync<TReturn>();
-        
+
                 if (result is null)
                 {
                     var message = await response.Content.ReadAsStringAsync();
@@ -66,6 +61,11 @@ namespace TestTasks.WeatherFromAPI
                     Success = false,
                 };
             }
+        }
+
+        public void Dispose()
+        {
+            _client.Dispose();
         }
     }
 }
